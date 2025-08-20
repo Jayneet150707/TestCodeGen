@@ -117,7 +117,7 @@ Update the connection string in `appsettings.json`:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=your-server;Database=your-database;Trusted_Connection=true;TrustServerCertificate=true;"
+    "DefaultConnection": "Server=SERVER_NAME;Database=DATABASE_NAME;Trusted_Connection=true;TrustServerCertificate=true;"
   }
 }
 ```
@@ -126,7 +126,7 @@ For SQL Server Authentication:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=your-server;Database=your-database;User Id=your-username;Password=your-secret-password;TrustServerCertificate=true;"
+    "DefaultConnection": "Server=SERVER_NAME;Database=DATABASE_NAME;User Id=USERNAME;Password=PASSWORD_HERE;TrustServerCertificate=true;"
   }
 }
 ```
