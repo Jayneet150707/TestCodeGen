@@ -126,7 +126,7 @@ For SQL Server Authentication:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=your-server;Database=your-database;User Id=your-username;Password=your-password;TrustServerCertificate=true;"
+    "DefaultConnection": "Server=your-server;Database=your-database;User Id=your-username;Password=your-secret-password;TrustServerCertificate=true;"
   }
 }
 ```
