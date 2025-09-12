@@ -1,0 +1,65 @@
+# Core Google ADK and Agent Framework
+google-cloud-aiplatform>=1.38.0
+google-cloud-functions>=1.13.0
+google-cloud-pubsub>=2.18.0
+google-cloud-storage>=2.10.0
+google-cloud-firestore>=2.13.0
+
+# Vector Database and ML
+chromadb>=0.4.15
+sentence-transformers>=2.2.2
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# Web Framework and API
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.4.0
+httpx>=0.25.0
+
+# Document Processing (OCR)
+pytesseract>=0.3.10
+Pillow>=10.0.0
+pdf2image>=1.16.3
+opencv-python>=4.8.0
+
+# Data Processing and Analysis
+pandas>=2.1.0
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.7
+redis>=5.0.0
+
+# Financial and Compliance
+python-dateutil>=2.8.2
+phonenumbers>=8.13.0
+email-validator>=2.1.0
+
+# Monitoring and Logging
+structlog>=23.2.0
+prometheus-client>=0.19.0
+opentelemetry-api>=1.21.0
+opentelemetry-sdk>=1.21.0
+
+# Configuration and Environment
+pyyaml>=6.0.1
+python-dotenv>=1.0.0
+click>=8.1.7
+
+# Testing and Development
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+black>=23.9.0
+flake8>=6.1.0
+mypy>=1.6.0
+
+# Async and Concurrency
+asyncio>=3.4.3
+aiohttp>=3.9.0
+celery>=5.3.0
+
+# Security and Encryption
+cryptography>=41.0.0
+bcrypt>=4.1.0
+pyjwt>=2.8.0
+

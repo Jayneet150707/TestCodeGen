@@ -1,0 +1,83 @@
+# Agent Fabric Configuration
+system:
+  name: "Agent Fabric Financial Platform"
+  version: "1.0.0"
+  environment: "development"
+  debug: true
+
+# Google ADK Configuration
+google_adk:
+  project_id: "your-gcp-project-id"
+  region: "us-central1"
+  credentials_path: "path/to/service-account.json"
+  
+# Orchestrator Settings
+orchestrator:
+  max_concurrent_workflows: 10
+  workflow_timeout: 300  # seconds
+  retry_attempts: 3
+  state_persistence: true
+  
+# Agent Registry
+agents:
+  discovery_interval: 30  # seconds
+  health_check_interval: 60  # seconds
+  max_agent_instances: 5
+  
+# Vector Database Configuration
+vector_db:
+  provider: "chroma"
+  host: "localhost"
+  port: 8000
+  collection_name: "financial_documents"
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  
+# Policy Guardrails
+policies:
+  compliance_level: "strict"
+  audit_logging: true
+  data_retention_days: 2555  # 7 years for financial records
+  encryption_required: true
+  
+# Human-in-the-Loop Configuration
+hitl:
+  enabled: true
+  escalation_threshold: 0.7  # confidence score below which human review is required
+  review_timeout: 3600  # 1 hour
+  notification_channels: ["email", "slack"]
+  
+# Database Configuration
+database:
+  url: "postgresql://user:password@localhost:5432/agent_fabric"
+  pool_size: 10
+  max_overflow: 20
+  
+# Redis Configuration (for caching and queues)
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  password: null
+  
+# Monitoring and Logging
+monitoring:
+  metrics_enabled: true
+  prometheus_port: 9090
+  log_level: "INFO"
+  structured_logging: true
+  
+# Security Settings
+security:
+  jwt_secret: "your-jwt-secret-key"
+  token_expiry: 3600  # 1 hour
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+    
+# External Services
+external_services:
+  credit_bureau_api: "https://api.creditbureau.com"
+  identity_verification_api: "https://api.idverify.com"
+  fraud_detection_api: "https://api.frauddetect.com"
+  document_storage: "gs://your-document-bucket"
+
