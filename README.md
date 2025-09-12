@@ -1,200 +1,138 @@
-# Email Sending Windows Service
+# Agent Fabric - Financial Services Platform
 
-A robust Windows service built with C# .NET 8 for sending emails with attachments. The service processes emails from a queue system and supports various email features including HTML content, multiple recipients, and file attachments.
+A comprehensive multi-agent system built with Google ADK for financial services, replacing LangGraph with Google's Agent Development Kit.
 
-## Features
-
-- ✅ **Windows Service**: Runs as a background Windows service
-- ✅ **Email Queue System**: File-based queue for reliable email processing
-- ✅ **Attachment Support**: Send emails with multiple file attachments
-- ✅ **HTML & Text Emails**: Support for both HTML and plain text content
-- ✅ **Priority Processing**: High, normal, and low priority email handling
-- ✅ **Multiple Recipients**: Support for To, CC, and BCC recipients
-- ✅ **Error Handling**: Robust error handling with retry mechanisms
-- ✅ **Logging**: Comprehensive logging to Windows Event Log and console
-- ✅ **Configuration**: JSON-based configuration management
-
-## Project Structure
+## 🏗️ Architecture Overview
 
 ```
-EmailService/
-├── Models/
-│   ├── EmailConfiguration.cs    # Configuration model
-│   └── EmailRequest.cs          # Email request model
-├── Services/
-│   ├── IEmailSender.cs          # Email sender interface
-│   ├── EmailSender.cs           # Email sending implementation
-│   └── EmailWorkerService.cs    # Background service worker
-├── Utils/
-│   └── EmailQueueHelper.cs      # Helper for queuing emails
-├── Examples/
-│   └── TestEmailSender.cs       # Example usage
-├── Scripts/
-│   ├── InstallService.bat       # Service installation script
-│   └── UninstallService.bat     # Service uninstallation script
-├── Program.cs                   # Application entry point
-├── appsettings.json            # Configuration file
-└── EmailService.csproj         # Project file
+┌─────────────────────────────────────────────────────────────┐
+│                    Agent Fabric (Python)                    │
+├─────────────────────────────────────────────────────────────┤
+│  Orchestrator (Google ADK)                                  │
+│  ├── Workflow Manager                                       │
+│  ├── State Manager                                          │
+│  └── Agent Registry                                         │
+├─────────────────────────────────────────────────────────────┤
+│  Financial Agents:                                          │
+│  ├── Intake Agent      (Application Processing)             │
+│  ├── KYC Agent         (Identity Verification)              │
+│  ├── Credit Agent      (Credit Assessment)                  │
+│  ├── Fraud Agent       (Fraud Detection)                    │
+│  └── Collections Agent (Debt Recovery)                      │
+├─────────────────────────────────────────────────────────────┤
+│  Processing Agents:                                         │
+│  ├── OCR Agent         (Document Processing)                │
+│  └── Enrichment Agent  (Data Enhancement)                   │
+├─────────────────────────────────────────────────────────────┤
+│  Infrastructure Services:                                   │
+│  ├── Vector DB         (Retrieval & Search)                 │
+│  ├── Policy Guardrails (Compliance & Rules)                 │
+│  └── HiTL Router       (Human-in-the-Loop)                  │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Configuration
+## 🚀 Key Features
 
-Update the `appsettings.json` file with your email settings:
+- **Google ADK Integration**: Native Google Agent Development Kit orchestration
+- **Financial Services Focus**: Purpose-built for lending and financial workflows
+- **Compliance Ready**: Built-in policy guardrails and audit trails
+- **Human-in-the-Loop**: Seamless human intervention for complex decisions
+- **Scalable Architecture**: Microservices-ready agent design
+- **Vector-Powered**: Advanced retrieval and similarity search capabilities
 
-```json
-{
-  "EmailConfiguration": {
-    "SmtpServer": "smtp.gmail.com",
-    "SmtpPort": 587,
-    "SmtpUsername": "your-email@gmail.com",
-    "SmtpPassword": "your-app-password",
-    "EnableSsl": true,
-    "FromEmail": "your-email@gmail.com",
-    "FromName": "Email Service",
-    "ProcessIntervalMinutes": 5,
-    "AttachmentFolder": "C:\\EmailAttachments",
-    "ProcessedFolder": "C:\\EmailAttachments\\Processed",
-    "ErrorFolder": "C:\\EmailAttachments\\Error"
-  }
-}
-```
+## 📋 Components
 
-### Gmail Configuration
+### Core Orchestrator
+- **Workflow Manager**: Coordinates agent execution sequences
+- **State Manager**: Maintains application state across agents
+- **Agent Registry**: Dynamic agent discovery and routing
 
-For Gmail, you'll need to:
-1. Enable 2-factor authentication
-2. Generate an App Password
-3. Use the App Password in the `SmtpPassword` field
+### Financial Agents
+- **Intake**: Processes loan applications and initial data collection
+- **KYC**: Performs identity verification and compliance checks
+- **Credit**: Assesses creditworthiness and risk scoring
+- **Fraud**: Detects fraudulent patterns and suspicious activities
+- **Collections**: Manages debt recovery and payment processing
 
-## Installation
+### Processing Agents
+- **OCR**: Extracts text and data from documents
+- **Enrichment**: Enhances data with external sources and validation
 
-### Prerequisites
+### Infrastructure Services
+- **Vector DB**: Semantic search and document retrieval
+- **Policy Guardrails**: Ensures regulatory compliance
+- **HiTL Router**: Routes complex cases to human reviewers
 
-- .NET 8.0 Runtime
-- Windows OS
-- Administrator privileges for service installation
+## 🛠️ Quick Start
 
-### Build the Project
+1. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Configure Environment**
+   ```bash
+   cp config/config.example.yaml config/config.yaml
+   # Edit config.yaml with your settings
+   ```
+
+3. **Run Demo Workflow**
+   ```bash
+   python examples/demo_runner.py
+   ```
+
+4. **Process Sample Loan Application**
+   ```bash
+   python examples/loan_application_workflow.py
+   ```
+
+## 📚 Documentation
+
+- [Architecture Guide](docs/architecture.md)
+- [Setup Instructions](docs/setup.md)
+- [API Reference](docs/api_reference.md)
+
+## 🔧 Configuration
+
+The system uses YAML configuration files in the `config/` directory:
+- `config.yaml`: Main system configuration
+- `agents.yaml`: Agent-specific settings
+- `policies.yaml`: Compliance and business rules
+
+## 🧪 Testing
 
 ```bash
-dotnet build --configuration Release
+# Run all tests
+python -m pytest tests/
+
+# Run specific workflow test
+python -m pytest tests/test_workflow.py
 ```
 
-### Install as Windows Service
-
-1. Run the build command to create the executable
-2. Copy the output files to your desired installation directory
-3. Run `Scripts/InstallService.bat` as Administrator
-4. The service will be installed and started automatically
-
-### Manual Installation
-
-```cmd
-sc create "Email Sending Service" binPath= "C:\Path\To\EmailService.exe" start= auto
-sc start "Email Sending Service"
-```
-
-## Usage
-
-### Queuing Emails Programmatically
-
-```csharp
-using EmailService.Models;
-using EmailService.Utils;
-
-// Create an email request
-var emailRequest = new EmailRequest
-{
-    To = "recipient@example.com",
-    Cc = "cc@example.com",
-    Subject = "Test Email",
-    Body = "<h1>Hello World!</h1><p>This is a test email.</p>",
-    IsHtml = true,
-    Priority = 1, // High priority
-    Attachments = new List<string> { @"C:\path\to\file.pdf" }
-};
-
-// Queue the email
-var queueFolder = @"C:\EmailAttachments\Queue";
-await EmailQueueHelper.QueueEmailAsync(queueFolder, emailRequest);
-```
-
-### Email Priority Levels
-
-- **1**: High Priority (processed first)
-- **2**: Normal Priority (default)
-- **3**: Low Priority (processed last)
-
-### Folder Structure
-
-The service creates and monitors these folders:
-
-- **Queue**: Contains pending emails to be sent
-- **Processed**: Successfully sent emails are moved here
-- **Error**: Failed emails are moved here for investigation
-
-## Monitoring
-
-### Windows Event Log
-
-The service logs to the Windows Event Log under "Application" with source "EmailService".
-
-### Log Levels
-
-- **Information**: Normal operations, successful email sends
-- **Warning**: Non-critical issues, missing attachments
-- **Error**: Failed email sends, configuration issues
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Service won't start**
-   - Check if .NET 8 runtime is installed
-   - Verify configuration file exists and is valid
-   - Check Windows Event Log for error details
-
-2. **Emails not sending**
-   - Verify SMTP settings in appsettings.json
-   - Check firewall settings for SMTP port
-   - Ensure email credentials are correct
-
-3. **Attachments not found**
-   - Verify file paths in EmailRequest.Attachments
-   - Check file permissions
-   - Ensure files exist before queuing
-
-### Testing
-
-Run the example test application:
+## 🐳 Docker Deployment
 
 ```bash
-dotnet run --project Examples/TestEmailSender.cs
+# Build and run with Docker Compose
+docker-compose up --build
 ```
 
-## Uninstallation
+## 📈 Monitoring
 
-Run `Scripts/UninstallService.bat` as Administrator, or manually:
+The system includes built-in monitoring and logging:
+- Agent performance metrics
+- Workflow execution traces
+- Compliance audit logs
+- Error tracking and alerting
 
-```cmd
-sc stop "Email Sending Service"
-sc delete "Email Sending Service"
-```
+## 🤝 Contributing
 
-## Development
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
 
-### Adding New Features
+## 📄 License
 
-1. Implement new functionality in the Services folder
-2. Update the EmailConfiguration model if needed
-3. Add appropriate logging
-4. Update this README
-
-### Testing
-
-Create test email requests using the EmailQueueHelper utility class and monitor the service logs for processing results.
-
-## License
-
-This project is provided as-is for educational and commercial use.
+MIT License - see LICENSE file for details
 
